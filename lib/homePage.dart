@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tacres_draft/dataset.dart';
+import 'package:tacres_draft/recordACT.dart';
 import 'package:tacres_draft/asthContTest.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
@@ -151,7 +152,9 @@ class _HomePageState extends State<HomePage> {
                   // Update the state of the app
                   // ...
                   // Then close the drawer
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(builder: (context) => recordACT()));
                 },
               ),
               ListTile(
