@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "223136338657",
+    "project_id": "tacres-fyp2",
+    "storage_bucket": "tacres-fyp2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223136338657:android:bc89983111635db30adda0",
+        "android_client_info": {
+          "package_name": "com.example.tacres_draft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223136338657-jr0pf8bq3vd37537oeiofb37mp6tsirp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSEmfXcmIdNrjB1K8qcIDA4UdRb8j8Wag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223136338657-jr0pf8bq3vd37537oeiofb37mp6tsirp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
