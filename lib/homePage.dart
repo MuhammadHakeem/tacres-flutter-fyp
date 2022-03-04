@@ -10,6 +10,8 @@ StreamController<String> streamController = StreamController<String>();
 
 Weather? currentTemp;
 List<Weather>? todayWeather;
+List<Weather>? sevenday;
+
 String lat = "3.1477";
 String lon = "101.6940";
 String city = "Kuala Lumpur";
@@ -29,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     fetchData("$lat", "$lon", city).then((value) {
       currentTemp = value[0];
       todayWeather = value[1];
+      sevenday = value[2];
       setState(() {});
     });
   }
@@ -680,27 +683,133 @@ class _dailyForecastState extends State<dailyForecast> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        height: 200,
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Flexible(
+              flex: 1,
+              fit: FlexFit.loose,
+              child: Column(
+                children: const [
+                  Text("Daily Forecast",
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                      textAlign: TextAlign.left),
+                ],
+              ),
+            ),
+            Flexible(
+                flex: 9,
+                fit: FlexFit.tight,
+                child: SingleChildScrollView(
+                  // margin: EdgeInsets.fromLTRB(5, 5, 0, 5),
+                  scrollDirection: Axis.horizontal,
+                  //tambah kat sini
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      dailyWidget(sevenday![0]),
+                      dailyWidget(sevenday![1]),
+                      dailyWidget(sevenday![2]),
+                      dailyWidget(sevenday![3]),
+                      dailyWidget(sevenday![4]),
+                      dailyWidget(sevenday![5]),
+                      dailyWidget(sevenday![6]),
+                    ],
+                  ),
+                ))
+          ],
+        ));
+  }
+}
+
+class dailyWidget extends StatelessWidget {
+  final Weather weather;
+  dailyWidget(this.weather);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
       padding: EdgeInsets.all(10),
-      height: 200,
+      margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
+      width: 80,
       decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Colors.black12,
           borderRadius: BorderRadius.all(Radius.circular(10))),
-      child: Column(children: <Widget>[
-        Flexible(
-          child: Container(
+      child: Column(
+        children: [
+          Image(
+            image: AssetImage(weather.image),
+            height: 40,
+          ),
+          Center(
             child: Column(
               children: [
-                Text("Daily Forecast",
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                    textAlign: TextAlign.left),
-                Text("$lat    ${lon}"),
-                Text("${city}"),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  weather.day,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/thermometer.png"),
+                            height: 10,
+                          ),
+                          Text(weather.current.toString() + "°C"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/drop.png"),
+                            height: 10,
+                          ),
+                          // SizedBox(
+                          //   width: 10,
+                          // ),
+                          Text(weather.humidity.toString() + "%"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/wind.png"),
+                            height: 10,
+                          ),
+                          // SizedBox(
+                          //   width: 10,
+                          // ),
+                          Text(weather.wind.toString() + "m/s"),
+                        ],
+                      ),
+
+                      //Text(weather.current.toString() + "°C"),
+                      // Text(weather.name.toString()),
+                      // Text(weather.humidity.toString() + "%"),
+                    ],
+                  ),
+                )
               ],
             ),
-          ),
-        )
-      ]),
+          )
+        ],
+      ),
     );
   }
 }

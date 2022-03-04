@@ -51,24 +51,46 @@ Future<List> fetchData(String lat, String lon, String city) async {
     List<Weather> todayWeather = [];
     int hourLocal = int.parse(DateFormat("hh").format(date));
     for (var i = 0; i < 7; i++) {
-      var temp = res["hourly"];
+      var hourlyRes = res["hourly"];
+      // print(hourlyRes);
       var hourly = Weather(
-          current: temp[i]["temp"]?.round() ?? 0,
-          name: current["weather"][0]["main"].toString(),
+          current: hourlyRes[i]["temp"]?.round() ?? 0,
+          name: hourlyRes[i]["weather"][0]["main"].toString(),
           day: DateFormat("EEEE dd MMMM").format(date),
-          wind: current["wind_speed"]?.round() ?? 0,
-          humidity: current["humidity"]?.round() ?? 0,
+          wind: hourlyRes[i]["wind_speed"]?.round() ?? 0,
+          humidity: hourlyRes[i]["humidity"]?.round() ?? 0,
           location: city,
-          image: findIcon(temp[i]["weather"][0]["main"].toString(), true),
+          image: findIcon(hourlyRes[i]["weather"][0]["main"].toString(), true),
           time: Duration(hours: hourLocal + i + 1).toString().split(":")[0] +
               ":00");
       // time: (hour + i + 1).toString().split(":")[0] + ":00");
       todayWeather.add(hourly);
     }
 
-    return [currentTemp, todayWeather];
+    // Seven day Weather
+    List<Weather> sevenday = [];
+    for (var i = 1; i < 8; i++) {
+      String day = DateFormat("EEEE")
+          .format(DateTime(date.year, date.month, date.day + i + 1))
+          .substring(0, 3);
+      var dailyRes = res["daily"];
+      // print(dailyRes);
+      var hourly = Weather(
+          current: dailyRes[i]["temp"]["day"]?.round() ?? 0,
+          name: dailyRes[i]["weather"][0]["main"].toString(),
+          day: day,
+          wind: dailyRes[i]["wind_speed"]?.round() ?? 0,
+          humidity: dailyRes[i]["humidity"]?.round() ?? 0,
+          location: city,
+          image: findIcon(dailyRes[i]["weather"][0]["main"].toString(), true),
+          time: Duration(hours: hourLocal + i + 1).toString().split(":")[0] +
+              ":00");
+      sevenday.add(hourly);
+    }
+
+    return [currentTemp, todayWeather, sevenday];
   }
-  return [null, null];
+  return [null, null, null];
 }
 
 //findicon
