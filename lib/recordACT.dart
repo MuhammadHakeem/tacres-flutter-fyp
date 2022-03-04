@@ -38,6 +38,7 @@ class recordACT extends StatelessWidget {
         ),
       ),
       body: Container(
+          margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
           child: StreamBuilder<QuerySnapshot>(
               stream: act_record,
               builder: (BuildContext context,
@@ -50,7 +51,6 @@ class recordACT extends StatelessWidget {
                 }
 
                 final data = snapshot.requireData;
-
                 return ListView.builder(
                   itemCount: data.size,
                   itemBuilder: (context, index) {
@@ -69,7 +69,7 @@ class recordACT extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Column(
-                              children: [Text(data.docs[index]['ACT_Weather'])],
+                              children: [Text(data.docs[index]['ACT_Date'])],
                             ),
                             Column(
                               children: [
@@ -78,12 +78,12 @@ class recordACT extends StatelessWidget {
                             ),
                             Column(
                               children: [
-                                Text(data.docs[index]['ACT_Date'].toString())
+                                Text(data.docs[index]['ACT_Desc'].toString())
                               ],
                             ),
                             Column(
                               children: [
-                                Text(data.docs[index]['Acc_ID'].toString())
+                                Text(data.docs[index]['ACT_Weather'].toString())
                               ],
                             ),
                           ],

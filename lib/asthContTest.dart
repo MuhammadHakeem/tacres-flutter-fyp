@@ -87,6 +87,7 @@ int q3 = 0;
 int q4 = 0;
 int q5 = 0;
 int cumACTscore = 0;
+String ACTdesc = '';
 
 void changeQ1(value) {
   q1 = value;
@@ -111,6 +112,15 @@ void changeQ5(value) {
 int updateCumACTscore(int val1, int val2, int val3, int val4, int val5) {
   cumACTscore = 0;
   cumACTscore = val1 + val2 + val3 + val4 + val5;
+
+  if (cumACTscore > 10 && cumACTscore <= 15) {
+    ACTdesc = "Very Poorly Controlled Asthma";
+  } else if (cumACTscore >= 16 && cumACTscore <= 20) {
+    ACTdesc = "Poorly Controlled Asthma";
+  } else {
+    ACTdesc = "Well-Controlled Asthma";
+  }
+
   return val1 + val2 + val3 + val4 + val5;
 }
 
@@ -836,11 +846,10 @@ class submitButton extends StatelessWidget {
                               localACTscore1: cumACTscore,
                             )));
                     FirebaseFirestore.instance.collection('act-record').add({
-                      // 'ACT_ID': FieldValue.increment(2),
                       'ACT_Score': cumACTscore,
-                      'Acc_ID': '300',
+                      'ACT_Desc': ACTdesc,
                       'ACT_Weather': currentWeather2,
-                      'ACT_Date': DateTime.now().format('dd MMMM y, h:mm a')
+                      'ACT_Date': DateTime.now().format('dd MMMM y')
                     });
                   },
                   child: const Text('Submit',
