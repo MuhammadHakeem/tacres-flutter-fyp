@@ -838,9 +838,9 @@ class submitButton extends StatelessWidget {
                     FirebaseFirestore.instance.collection('act-record').add({
                       // 'ACT_ID': FieldValue.increment(2),
                       'ACT_Score': cumACTscore,
-                      'Acc_ID': '',
+                      'Acc_ID': '300',
                       'ACT_Weather': currentWeather2,
-                      'ACT_Date': DateTime.now().format('MMMM dd y, h:mm:ss a')
+                      'ACT_Date': DateTime.now().format('dd MMMM y, h:mm a')
                     });
                   },
                   child: const Text('Submit',
