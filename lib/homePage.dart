@@ -620,7 +620,7 @@ class healthRec extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       padding: EdgeInsets.all(10),
-      height: 130,
+      height: 140,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -644,20 +644,26 @@ class healthRec extends StatelessWidget {
         Flexible(
             flex: 3,
             child: Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
-                children: const <Widget>[
+                children: <Widget>[
                   ListTile(
                     title: Text(
-                      "1. Stay indoor, it will help you reduce the exposure to rain and humidity.",
+                      "1. " +
+                          healthRecommendation1(currentTemp!.name.toString()),
+                      // ignore: prefer_const_constructors
                       style: TextStyle(fontSize: 14),
                     ),
+                    // ignore: prefer_const_constructors
                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                   ),
                   ListTile(
-                    title: Text("2. Wear a scarf or mask to cover your nose.",
+                    title: Text(
+                        "2. " +
+                            healthRecommendation2(currentTemp!.name.toString()),
                         style: TextStyle(fontSize: 14)),
                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                   )
@@ -666,6 +672,30 @@ class healthRec extends StatelessWidget {
             ))
       ]),
     );
+  }
+}
+
+String healthRecommendation1(weatherName) {
+  if (weatherName == "Rain" ||
+      weatherName == "Clouds" ||
+      weatherName == "Drizzle") {
+    return "Wrap a scarf around nose and mouth loosely";
+  } else if (weatherName == "Thunderstorm") {
+    return "Stay inside before, during and after the storm.";
+  } else {
+    return "Keep an eye on air quality index and pollen forecast";
+  }
+}
+
+String healthRecommendation2(weatherName) {
+  if (weatherName == "Rain" ||
+      weatherName == "Clouds" ||
+      weatherName == "Drizzle") {
+    return "The scarf can prevent airways being shocked by cold air.";
+  } else if (weatherName == "Thunderstorm") {
+    return "Keep the windows shut to prevent pollen from entering the house.";
+  } else {
+    return "Don't forget to bring reliever inhaler.";
   }
 }
 
