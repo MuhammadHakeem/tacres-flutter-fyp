@@ -125,17 +125,35 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: const Color(0xffBFC0C2),
         drawer: Drawer(
+          backgroundColor: Colors.white,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                  child: Text('TACRES APPS')),
+              Container(
+                height: 100,
+                margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage("assets/icon-tacres.png"),
+                      fit: BoxFit.contain),
+                ),
+              ),
+              const Text(
+                'Treate Asthma Climate Region Experience System',
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 30),
+              Divider(color: Colors.grey),
               ListTile(
+                selectedTileColor: Colors.blue[300],
+                tileColor: Colors.white,
                 leading: const Icon(Icons.edit, color: Colors.black),
-                title: const Text('Asthma Control Test'),
+                title: const Text('Asthma Control Test',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -148,9 +166,15 @@ class _HomePageState extends State<HomePage> {
                   // Navigator.pop(context);
                 },
               ),
+              Divider(color: Colors.grey),
               ListTile(
+                selectedTileColor: Colors.blue[300],
+                tileColor: Colors.white,
                 leading: const Icon(Icons.feed, color: Colors.black),
-                title: const Text('ACT Records'),
+                title: const Text('ACT Records',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -160,9 +184,14 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(builder: (context) => recordACT()));
                 },
               ),
+              Divider(color: Colors.grey),
               ListTile(
+                tileColor: Colors.white,
                 leading: const Icon(Icons.menu_book, color: Colors.black),
-                title: const Text('Weather Map'),
+                title: const Text('Weather Map',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -170,10 +199,15 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(context);
                 },
               ),
+              Divider(color: Colors.grey),
               ListTile(
+                tileColor: Colors.white,
                 leading:
                     const Icon(Icons.language_rounded, color: Colors.black),
-                title: const Text('App Language'),
+                title: const Text('App Language',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -181,12 +215,17 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(context);
                 },
               ),
+              Divider(color: Colors.grey),
               ListTile(
+                tileColor: Colors.white,
                 leading: const Icon(
                   Icons.settings,
                   color: Colors.black,
                 ),
-                title: const Text('Settings'),
+                title: const Text('Settings',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -194,8 +233,13 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(context);
                 },
               ),
+              Divider(color: Colors.grey),
               ListTile(
-                title: const Text('Log Out'),
+                tileColor: Colors.white,
+                title: const Text('Log Out',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -219,8 +263,6 @@ class _HomePageState extends State<HomePage> {
                 healthRec(),
                 dailyForecast(),
                 Text("")
-
-                // TodayWeather()
               ],
             ),
           ),
