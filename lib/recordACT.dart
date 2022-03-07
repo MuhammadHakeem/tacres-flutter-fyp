@@ -6,8 +6,10 @@ import 'package:tacres_draft/homePage.dart';
 class recordACT extends StatelessWidget {
   // const recordACT({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> act_record =
-      FirebaseFirestore.instance.collection('act-record').snapshots();
+  final Stream<QuerySnapshot> act_record = FirebaseFirestore.instance
+      .collection('act-record')
+      .orderBy('ACT_Date', descending: false)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,8 @@ class recordACT extends StatelessWidget {
                               fit: FlexFit.tight,
                               child: Column(
                                 children: [
-                                  Text(data.docs[index]['ACT_Date']),
+                                  Text(data.docs[index]['ACT_Date'],
+                                      style: TextStyle(fontSize: 12)),
                                 ],
                               ),
                             ),
@@ -78,8 +81,8 @@ class recordACT extends StatelessWidget {
                               fit: FlexFit.tight,
                               child: Column(
                                 children: [
-                                  Text(
-                                      data.docs[index]['ACT_Score'].toString()),
+                                  Text(data.docs[index]['ACT_Score'].toString(),
+                                      style: TextStyle(fontSize: 12.0)),
                                 ],
                               ),
                             ),
@@ -92,7 +95,8 @@ class recordACT extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(data.docs[index]['ACT_Desc'].toString(),
-                                      textAlign: TextAlign.center),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 12.0)),
                                 ],
                               ),
                             ),
@@ -104,8 +108,10 @@ class recordACT extends StatelessWidget {
                               fit: FlexFit.tight,
                               child: Column(
                                 children: [
-                                  Text(data.docs[index]['ACT_Weather']
-                                      .toString())
+                                  Text(
+                                      data.docs[index]['ACT_Weather']
+                                          .toString(),
+                                      style: TextStyle(fontSize: 12.0))
                                 ],
                               ),
                             ),
