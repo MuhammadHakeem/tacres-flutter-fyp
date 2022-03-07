@@ -54,37 +54,60 @@ class recordACT extends StatelessWidget {
                 return ListView.builder(
                   itemCount: data.size,
                   itemBuilder: (context, index) {
-                    // return Text(data.docs[index]['ACT_Weather'] +
-                    //     "  " +
-                    //     data.docs[index]['ACT_Score'].toString() +
-                    //     "  " +
-                    //     data.docs[index]['ACT_Date'].toString() +
-                    //     "  " +
-                    //     data.docs[index]['Acc_ID'].toString());
                     return Container(
-                        height: 50,
+                        height: 60,
                         color: Colors.white,
                         child: Center(
                             child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [Text(data.docs[index]['ACT_Date'])],
+                          children: <Widget>[
+                            Flexible(
+                              flex: 2,
+                              fit: FlexFit.tight,
+                              child: Column(
+                                children: [
+                                  Text(data.docs[index]['ACT_Date']),
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                Text(data.docs[index]['ACT_Score'].toString())
-                              ],
+                            const VerticalDivider(
+                              color: Colors.grey,
                             ),
-                            Column(
-                              children: [
-                                Text(data.docs[index]['ACT_Desc'].toString())
-                              ],
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Column(
+                                children: [
+                                  Text(
+                                      data.docs[index]['ACT_Score'].toString()),
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                Text(data.docs[index]['ACT_Weather'].toString())
-                              ],
+                            const VerticalDivider(
+                              color: Colors.grey,
+                            ),
+                            Flexible(
+                              flex: 2,
+                              fit: FlexFit.tight,
+                              child: Column(
+                                children: [
+                                  Text(data.docs[index]['ACT_Desc'].toString(),
+                                      textAlign: TextAlign.center),
+                                ],
+                              ),
+                            ),
+                            const VerticalDivider(
+                              color: Colors.grey,
+                            ),
+                            Flexible(
+                              flex: 2,
+                              fit: FlexFit.tight,
+                              child: Column(
+                                children: [
+                                  Text(data.docs[index]['ACT_Weather']
+                                      .toString())
+                                ],
+                              ),
                             ),
                           ],
                         )));
