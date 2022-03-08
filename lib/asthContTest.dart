@@ -113,7 +113,7 @@ int updateCumACTscore(int val1, int val2, int val3, int val4, int val5) {
   cumACTscore = 0;
   cumACTscore = val1 + val2 + val3 + val4 + val5;
 
-  if (cumACTscore > 10 && cumACTscore <= 15) {
+  if (cumACTscore >= 0 && cumACTscore <= 15) {
     ACTdesc = "Very Poorly Controlled Asthma";
   } else if (cumACTscore >= 16 && cumACTscore <= 20) {
     ACTdesc = "Poorly Controlled Asthma";
@@ -849,7 +849,7 @@ class submitButton extends StatelessWidget {
                       'ACT_Score': cumACTscore,
                       'ACT_Desc': ACTdesc,
                       'ACT_Weather': currentWeather2,
-                      'ACT_Date': DateTime.now().format('dd MMMM y')
+                      'ACT_Date': DateTime.now().format('y-MM-dd')
                     });
                   },
                   child: const Text('Submit',
