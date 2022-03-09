@@ -849,7 +849,7 @@ class submitButton extends StatelessWidget {
                       'ACT_Score': cumACTscore,
                       'ACT_Desc': ACTdesc,
                       'ACT_Weather': currentWeather2,
-                      'ACT_Date': DateTime.now().format('y-MM-dd')
+                      'ACT_Date': DateTime.now().format('y-MM-dd H:m')
                     });
                   },
                   child: const Text('Submit',
