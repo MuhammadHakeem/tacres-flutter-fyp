@@ -311,10 +311,13 @@ class _TodayWeatherState extends State<TodayWeather> {
                 currentTemp!.current.toString() + "°C",
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               ),
-              // Text(currentTemp.day,
-              //     style: TextStyle(
-              //       fontSize: 18,
-              //     ))
+              Text(currentTemp!.name + ": " + currentTemp!.description,
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              SizedBox(
+                height: 10,
+              )
             ],
           )),
           Row(
