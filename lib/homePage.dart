@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tacres_draft/dataset.dart';
 import 'package:tacres_draft/recordACT.dart';
@@ -5,6 +6,7 @@ import 'package:tacres_draft/asthContTest.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'package:geocoding/geocoding.dart';
+import 'dart:convert';
 
 StreamController<String> streamController = StreamController<String>();
 
@@ -15,6 +17,11 @@ List<Weather>? sevenday;
 String lat = "3.1477";
 String lon = "101.6940";
 String city = "Kuala Lumpur";
+
+var currentACTScore = 0;
+var previousACTScore = 0;
+var actScoreArray = List.filled(2, null, growable: false);
+List<DocumentSnapshot> item = [];
 
 class HomePage extends StatefulWidget {
   @override
@@ -262,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                 weatherUpdate(),
                 healthRec(),
                 dailyForecast(),
-                Text("")
+                UserInformation(),
               ],
             ),
           ),
@@ -485,8 +492,34 @@ class hourlyWidget extends StatelessWidget {
   }
 }
 
+String calcAsthChancExac(int value) {
+  // ignore: unnecessary_null_comparison
+  if (value == Null) {
+    return "            No Data               ";
+  } else if (value >= 0 && value <= 15) {
+    return "                High               ";
+  } else if (value >= 16 && value <= 20) {
+    return "               Medium              ";
+  } else {
+    return "                Low               ";
+  }
+}
+
+calcAsthChancExacColor(int value) {
+  // ignore: unnecessary_null_comparison
+  if (value == Null) {
+    return Colors.white;
+  } else if (value >= 0 && value <= 15) {
+    return Colors.redAccent;
+  } else if (value >= 16 && value <= 20) {
+    return Colors.orangeAccent;
+  } else {
+    return Colors.greenAccent;
+  }
+}
+
 class currChance extends StatelessWidget {
-  const currChance({Key? key}) : super(key: key);
+  //FirebaseFirestore.instance.collection('act-record').doc('ACT_Score');
 
   @override
   Widget build(BuildContext context) {
@@ -534,15 +567,16 @@ class currChance extends StatelessWidget {
                           flex: 1,
                           fit: FlexFit.tight,
                           child: Container(
-                              decoration: const BoxDecoration(
-                                  color: Colors.redAccent,
+                              decoration: BoxDecoration(
+                                  color:
+                                      calcAsthChancExacColor(currentACTScore),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               padding: const EdgeInsets.all(5),
                               child: Column(
-                                children: const [
-                                  Text("                Medium               ",
-                                      style: TextStyle(
+                                children: [
+                                  Text(calcAsthChancExac(currentACTScore),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w800))
                                 ],
                               )))
@@ -591,7 +625,7 @@ class currChance extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(10))),
                               padding: const EdgeInsets.all(5),
                               child: Column(
-                                children: const [
+                                children: [
                                   Text(
                                       "                   Low                   ",
                                       style: TextStyle(
@@ -641,7 +675,7 @@ class weatherUpdate extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               padding: EdgeInsets.all(5),
               child: Column(
-                children: const [
+                children: [
                   Text(
                       "Rain in the morning and afternoon with high humidity rising to 97%.")
                 ],
@@ -881,6 +915,60 @@ class dailyWidget extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+//https://firebase.flutter.dev/docs/firestore/usage
+class UserInformation extends StatefulWidget {
+  @override
+  _UserInformationState createState() => _UserInformationState();
+}
+
+class _UserInformationState extends State<UserInformation> {
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('act-record')
+      .orderBy('ACT_Date', descending: true)
+      .limit(2)
+      .snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      height: 50,
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: StreamBuilder<QuerySnapshot>(
+        stream: _usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+
+          return ListView(
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+
+              currentACTScore = data['ACT_Score'];
+              // item.add(data['ACT_Score']);
+              // actScoreArray.add(data['ACT_Score']);
+              return Text(data['ACT_Score'].toString() +
+                  "   " +
+                  data['ACT_Weather'].toString() +
+                  "   " +
+                  data['ACT_Date'].toString());
+            }).toList(),
+          );
+        },
       ),
     );
   }
