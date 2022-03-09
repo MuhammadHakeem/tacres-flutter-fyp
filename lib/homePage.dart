@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tacres_draft/dataset.dart';
 import 'package:tacres_draft/recordACT.dart';
 import 'package:tacres_draft/asthContTest.dart';
+import 'package:tacres_draft/mapsLayer.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'package:geocoding/geocoding.dart';
@@ -203,7 +204,9 @@ class _HomePageState extends State<HomePage> {
                   // Update the state of the app
                   // ...
                   // Then close the drawer
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(builder: (context) => mapsLayer()));
                 },
               ),
               Divider(color: Colors.grey),
@@ -270,6 +273,7 @@ class _HomePageState extends State<HomePage> {
                 healthRec(),
                 dailyForecast(),
                 UserInformation(),
+                previousChanceCalc(),
               ],
             ),
           ),
@@ -619,15 +623,15 @@ class currChance extends StatelessWidget {
                           flex: 1,
                           fit: FlexFit.tight,
                           child: Container(
-                              decoration: const BoxDecoration(
-                                  color: Colors.greenAccent,
+                              decoration: BoxDecoration(
+                                  color:
+                                      calcAsthChancExacColor(previousACTScore),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               padding: const EdgeInsets.all(5),
                               child: Column(
                                 children: [
-                                  Text(
-                                      "                   Low                   ",
+                                  Text(calcAsthChancExac(previousACTScore),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w800))
                                 ],
@@ -930,18 +934,13 @@ class _UserInformationState extends State<UserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('act-record')
       .orderBy('ACT_Date', descending: true)
-      .limit(2)
+      .limit(1)
       .snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-      height: 50,
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10))),
+      height: 5,
       child: StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -961,11 +960,57 @@ class _UserInformationState extends State<UserInformation> {
               currentACTScore = data['ACT_Score'];
               // item.add(data['ACT_Score']);
               // actScoreArray.add(data['ACT_Score']);
-              return Text(data['ACT_Score'].toString() +
-                  "   " +
-                  data['ACT_Weather'].toString() +
-                  "   " +
-                  data['ACT_Date'].toString());
+              return Text(data['ACT_Score'].toString(),
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 1));
+            }).toList(),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class previousChanceCalc extends StatefulWidget {
+  const previousChanceCalc({Key? key}) : super(key: key);
+
+  @override
+  State<previousChanceCalc> createState() => _previousChanceCalcState();
+}
+
+class _previousChanceCalcState extends State<previousChanceCalc> {
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('act-record')
+      .orderBy('ACT_Date', descending: true)
+      .limit(2)
+      .snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 10,
+      // decoration: const BoxDecoration(
+      //     color: Colors.white,
+      //     borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: StreamBuilder<QuerySnapshot>(
+        stream: _usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+
+          return ListView(
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+
+              previousACTScore = data['ACT_Score'];
+
+              return Text(data['ACT_Score'].toString(),
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 1));
             }).toList(),
           );
         },
