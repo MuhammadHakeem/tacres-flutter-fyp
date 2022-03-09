@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 class Weather {
   final int current;
   final String name;
+  final String description;
   final String day;
   final int wind;
   final int humidity;
@@ -16,6 +17,7 @@ class Weather {
 
   Weather(
       {required this.name, //
+      required this.description,
       required this.day, //
       required this.wind, //
       required this.humidity, //
@@ -41,6 +43,7 @@ Future<List> fetchData(String lat, String lon, String city) async {
     Weather currentTemp = Weather(
         current: current["temp"]?.round() ?? 0,
         name: current["weather"][0]["main"].toString(),
+        description: current["weather"][0]["description"].toString(),
         day: DateFormat("EEEE dd MMMM").format(date),
         wind: current["wind_speed"]?.round() ?? 0,
         humidity: current["humidity"]?.round() ?? 0,
@@ -56,6 +59,7 @@ Future<List> fetchData(String lat, String lon, String city) async {
       var hourly = Weather(
           current: hourlyRes[i]["temp"]?.round() ?? 0,
           name: hourlyRes[i]["weather"][0]["main"].toString(),
+          description: hourlyRes[i]["weather"][0]["description"].toString(),
           day: DateFormat("EEEE dd MMMM").format(date),
           wind: hourlyRes[i]["wind_speed"]?.round() ?? 0,
           humidity: hourlyRes[i]["humidity"]?.round() ?? 0,
@@ -78,6 +82,7 @@ Future<List> fetchData(String lat, String lon, String city) async {
       var hourly = Weather(
           current: dailyRes[i]["temp"]["day"]?.round() ?? 0,
           name: dailyRes[i]["weather"][0]["main"].toString(),
+          description: dailyRes[i]["weather"][0]["description"].toString(),
           day: day,
           wind: dailyRes[i]["wind_speed"]?.round() ?? 0,
           humidity: dailyRes[i]["humidity"]?.round() ?? 0,

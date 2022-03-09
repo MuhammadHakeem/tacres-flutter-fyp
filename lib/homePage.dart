@@ -499,13 +499,13 @@ class hourlyWidget extends StatelessWidget {
 String calcAsthChancExac(int value) {
   // ignore: unnecessary_null_comparison
   if (value == Null) {
-    return "            No Data               ";
+    return "             No Data               ";
   } else if (value >= 0 && value <= 15) {
     return "                High               ";
   } else if (value >= 16 && value <= 20) {
     return "               Medium              ";
   } else {
-    return "                Low               ";
+    return "                Low                ";
   }
 }
 
@@ -652,7 +652,7 @@ class weatherUpdate extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      height: 90,
+      height: 100,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -664,7 +664,7 @@ class weatherUpdate extends StatelessWidget {
             fit: FlexFit.tight,
             child: Column(
               children: const [
-                Text("Update",
+                Text("Weather Update",
                     style: TextStyle(fontWeight: FontWeight.w800),
                     textAlign: TextAlign.left)
               ],
@@ -677,11 +677,17 @@ class weatherUpdate extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.all(Radius.circular(10))),
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  Text(
-                      "Rain in the morning and afternoon with high humidity rising to 97%.")
+                  Text(currentTemp!.name +
+                      " weather with temperature of " +
+                      currentTemp!.current.toString() +
+                      "°C, humidity up to " +
+                      currentTemp!.humidity.toString() +
+                      "% and the wind speed of " +
+                      currentTemp!.wind.toString() +
+                      "m/s.")
                 ],
               ),
             ),
