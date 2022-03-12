@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tacres_draft/homePage.dart';
-import 'package:tacres_draft/services/auth.dart';
 
 class recordACT extends StatelessWidget {
   // const recordACT({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> act_record = FirebaseFirestore.instance
-      .collection('draft-act-record')
-      .where('Uid', isEqualTo: AuthService().giveMyUid())
-      .orderBy('ACT_Date', descending: false)
-      .snapshots();
+  final Stream<QuerySnapshot> act_record =
+      FirebaseFirestore.instance.collection('act-record').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +66,7 @@ class recordACT extends StatelessWidget {
                               fit: FlexFit.tight,
                               child: Column(
                                 children: [
-                                  Text(data.docs[index]['ACT_Date'],
-                                      style: TextStyle(fontSize: 12)),
+                                  Text(data.docs[index]['ACT_Date']),
                                 ],
                               ),
                             ),
@@ -83,8 +78,8 @@ class recordACT extends StatelessWidget {
                               fit: FlexFit.tight,
                               child: Column(
                                 children: [
-                                  Text(data.docs[index]['ACT_Score'].toString(),
-                                      style: TextStyle(fontSize: 12.0)),
+                                  Text(
+                                      data.docs[index]['ACT_Score'].toString()),
                                 ],
                               ),
                             ),
@@ -97,8 +92,7 @@ class recordACT extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(data.docs[index]['ACT_Desc'].toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 12.0)),
+                                      textAlign: TextAlign.center),
                                 ],
                               ),
                             ),
@@ -110,10 +104,8 @@ class recordACT extends StatelessWidget {
                               fit: FlexFit.tight,
                               child: Column(
                                 children: [
-                                  Text(
-                                      data.docs[index]['ACT_Weather']
-                                          .toString(),
-                                      style: TextStyle(fontSize: 12.0))
+                                  Text(data.docs[index]['ACT_Weather']
+                                      .toString())
                                 ],
                               ),
                             ),

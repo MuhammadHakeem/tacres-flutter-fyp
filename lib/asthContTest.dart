@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tacres_draft/homePage.dart';
 import 'package:tacres_draft/resultACT.dart';
 import 'package:dart_date/dart_date.dart'; //to get formatted date
+import 'package:tacres_draft/services/auth.dart';
 
 class asthContTest extends StatelessWidget {
   String currentWeather;
@@ -81,11 +82,20 @@ enum answer5 { choice1, choice2, choice3, choice4, choice5 }
 
 // ignore: camel_case_types
 
-int q1 = 0;
-int q2 = 0;
-int q3 = 0;
-int q4 = 0;
-int q5 = 0;
+int q1 = 1;
+int q2 = 1;
+int q3 = 1;
+int q4 = 1;
+int q5 = 1;
+
+void setAlltoDefault() {
+  q1 = 1;
+  q2 = 1;
+  q3 = 1;
+  q4 = 1;
+  q5 = 1;
+}
+
 int cumACTscore = 0;
 String ACTdesc = '';
 
@@ -845,12 +855,16 @@ class submitButton extends StatelessWidget {
                         builder: (context) => resultACT(
                               localACTscore1: cumACTscore,
                             )));
-                    FirebaseFirestore.instance.collection('act-record').add({
+                    FirebaseFirestore.instance
+                        .collection('draft-act-record')
+                        .add({
                       'ACT_Score': cumACTscore,
                       'ACT_Desc': ACTdesc,
                       'ACT_Weather': currentWeather2,
-                      'ACT_Date': DateTime.now().format('y-MM-dd H:m')
+                      'ACT_Date': DateTime.now().format('y-MM-dd H:m'),
+                      'Uid': AuthService().giveMyUid(),
                     });
+                    setAlltoDefault();
                   },
                   child: const Text('Submit',
                       style: TextStyle(

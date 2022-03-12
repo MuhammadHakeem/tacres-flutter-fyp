@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:tacres_draft/dataset.dart';
 import 'package:tacres_draft/recordACT.dart';
 import 'package:tacres_draft/asthContTest.dart';
-import 'package:tacres_draft/mapsLayer.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'package:geocoding/geocoding.dart';
 import 'dart:convert';
+import 'package:tacres_draft/services/database.dart';
+import 'package:tacres_draft/services/auth.dart';
+import 'package:provider/provider.dart';
 
 StreamController<String> streamController = StreamController<String>();
 
@@ -21,8 +23,6 @@ String city = "Kuala Lumpur";
 
 var currentACTScore = 0;
 var previousACTScore = 0;
-var actScoreArray = List.filled(2, null, growable: false);
-List<DocumentSnapshot> item = [];
 
 class HomePage extends StatefulWidget {
   @override
@@ -32,6 +32,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Position position;
   late List<Placemark> placemarks;
+
+  final AuthService _auth = AuthService();
 
   dailyForecast dailyforecast = const dailyForecast();
 
@@ -200,14 +202,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       color: Colors.black,
                     )),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.of(context).push(
-                      // ignore: prefer_const_constructors
-                      MaterialPageRoute(builder: (context) => mapsLayer()));
-                },
+                onTap: () {},
               ),
               Divider(color: Colors.grey),
               ListTile(
@@ -250,11 +245,11 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       color: Colors.black,
                     )),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
+                onTap: () async {
+                  // Navigator.pop(context);
+                  previousACTScore = 0;
+                  currentACTScore = 0;
+                  _auth.signOutAuth();
                 },
               ),
             ],
@@ -501,27 +496,27 @@ class hourlyWidget extends StatelessWidget {
 
 String calcAsthChancExac(int value) {
   // ignore: unnecessary_null_comparison
-  if (value == Null) {
-    return "             No Data               ";
-  } else if (value >= 0 && value <= 15) {
+  if (value > 0 && value <= 15) {
     return "                High               ";
   } else if (value >= 16 && value <= 20) {
     return "               Medium              ";
-  } else {
+  } else if (value >= 21 && value <= 25) {
     return "                Low                ";
+  } else {
+    return "              No Data              ";
   }
 }
 
 calcAsthChancExacColor(int value) {
   // ignore: unnecessary_null_comparison
-  if (value == Null) {
-    return Colors.white;
-  } else if (value >= 0 && value <= 15) {
+  if (value > 0 && value <= 15) {
     return Colors.redAccent;
   } else if (value >= 16 && value <= 20) {
     return Colors.orangeAccent;
-  } else {
+  } else if (value >= 21 && value <= 25) {
     return Colors.greenAccent;
+  } else {
+    return Colors.white;
   }
 }
 
@@ -941,7 +936,8 @@ class UserInformation extends StatefulWidget {
 
 class _UserInformationState extends State<UserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('act-record')
+      .collection('draft-act-record')
+      .where('Uid', isEqualTo: AuthService().giveMyUid())
       .orderBy('ACT_Date', descending: true)
       .limit(1)
       .snapshots();
@@ -949,7 +945,7 @@ class _UserInformationState extends State<UserInformation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 5,
+      height: 50,
       child: StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -970,7 +966,7 @@ class _UserInformationState extends State<UserInformation> {
               // item.add(data['ACT_Score']);
               // actScoreArray.add(data['ACT_Score']);
               return Text(data['ACT_Score'].toString(),
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 1));
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20));
             }).toList(),
           );
         },
@@ -988,7 +984,8 @@ class previousChanceCalc extends StatefulWidget {
 
 class _previousChanceCalcState extends State<previousChanceCalc> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('act-record')
+      .collection('draft-act-record')
+      .where('Uid', isEqualTo: AuthService().giveMyUid())
       .orderBy('ACT_Date', descending: true)
       .limit(2)
       .snapshots();
@@ -996,7 +993,7 @@ class _previousChanceCalcState extends State<previousChanceCalc> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 10,
+      height: 50,
       // decoration: const BoxDecoration(
       //     color: Colors.white,
       //     borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -1019,7 +1016,7 @@ class _previousChanceCalcState extends State<previousChanceCalc> {
               previousACTScore = data['ACT_Score'];
 
               return Text(data['ACT_Score'].toString(),
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 1));
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20));
             }).toList(),
           );
         },
