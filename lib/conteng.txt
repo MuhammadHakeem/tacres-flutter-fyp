@@ -117,3 +117,19 @@ class recordACT extends StatelessWidget {
     );
   }
 }
+
+
+//////////////////////////////////////////////////
+
+onPressed: () {
+                // function for update current location
+                lat = position.latitude.toString();
+                lon = position.longitude.toString();
+                setState(() async {
+                  _determinePosition();
+                  placemarks = await placemarkFromCoordinates(
+                      position.latitude, position.longitude);
+                  city = placemarks.elementAt(0).locality.toString();
+                  getData();
+                });
+              },

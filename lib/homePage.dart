@@ -116,18 +116,35 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-              onPressed: () {
-                // function for update current location
-                lat = position.latitude.toString();
-                lon = position.longitude.toString();
-                setState(() async {
-                  _determinePosition();
-                  placemarks = await placemarkFromCoordinates(
-                      position.latitude, position.longitude);
-                  city = placemarks.elementAt(0).locality.toString();
-                  getData();
-                });
-              },
+              onPressed: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Update Your Current Location?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'No'),
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      // onPressed: () => Navigator.pop(context, 'OK'),
+                      onPressed: () {
+                        Navigator.pop(context, 'Yes');
+                        lat = position.latitude.toString();
+                        lon = position.longitude.toString();
+                        setState(() async {
+                          _determinePosition();
+                          placemarks = await placemarkFromCoordinates(
+                              position.latitude, position.longitude);
+                          city = placemarks.elementAt(0).locality.toString();
+                          getData();
+                        });
+                      },
+
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              ),
               icon: const Icon(Icons.location_on_outlined, size: 30),
               color: Colors.black,
             )
