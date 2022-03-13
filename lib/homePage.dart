@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
 
-                      child: const Text('OK'),
+                      child: const Text('Yes'),
                     ),
                   ],
                 ),
@@ -962,7 +962,7 @@ class _UserInformationState extends State<UserInformation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 10,
       child: StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -983,7 +983,7 @@ class _UserInformationState extends State<UserInformation> {
               // item.add(data['ACT_Score']);
               // actScoreArray.add(data['ACT_Score']);
               return Text(data['ACT_Score'].toString(),
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20));
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 1));
             }).toList(),
           );
         },
@@ -1010,7 +1010,7 @@ class _previousChanceCalcState extends State<previousChanceCalc> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 10,
       // decoration: const BoxDecoration(
       //     color: Colors.white,
       //     borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -1033,7 +1033,7 @@ class _previousChanceCalcState extends State<previousChanceCalc> {
               previousACTScore = data['ACT_Score'];
 
               return Text(data['ACT_Score'].toString(),
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20));
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 1));
             }).toList(),
           );
         },
