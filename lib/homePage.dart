@@ -16,6 +16,7 @@ StreamController<String> streamController = StreamController<String>();
 Weather? currentTemp;
 List<Weather>? todayWeather;
 List<Weather>? sevenday;
+AirQualityIndex? currentAqi;
 
 String lat = "3.1477";
 String lon = "101.6940";
@@ -23,6 +24,7 @@ String city = "Kuala Lumpur";
 
 var currentACTScore = 0;
 var previousACTScore = 0;
+var currentAirQualityIndex = 0;
 
 class HomePage extends StatefulWidget {
   @override
@@ -42,6 +44,10 @@ class _HomePageState extends State<HomePage> {
       currentTemp = value[0];
       todayWeather = value[1];
       sevenday = value[2];
+      setState(() {});
+    });
+    fetchDataAqi("$lat", "$lon").then((valueAqi) {
+      currentAqi = valueAqi[0];
       setState(() {});
     });
   }
@@ -343,6 +349,7 @@ class _TodayWeatherState extends State<TodayWeather> {
                         image: AssetImage("assets/drop.png"),
                         height: 15,
                       ),
+                      SizedBox(width: 10),
                       Text(currentTemp!.humidity.toString() + "%")
                     ],
                   )
@@ -356,7 +363,20 @@ class _TodayWeatherState extends State<TodayWeather> {
                         image: AssetImage("assets/wind.png"),
                         height: 15,
                       ),
+                      SizedBox(width: 10),
                       Text(currentTemp!.wind.toString() + "m/s")
+                    ],
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text("AQI",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      SizedBox(width: 10),
+                      Text(calcAqi(currentAqi!.aqi))
                     ],
                   )
                 ],
@@ -366,6 +386,23 @@ class _TodayWeatherState extends State<TodayWeather> {
         ],
       ),
     );
+  }
+}
+
+String calcAqi(int value) {
+  switch (value) {
+    case 1:
+      return "Good";
+    case 2:
+      return "Fair";
+    case 3:
+      return "Moderate";
+    case 4:
+      return "Poor";
+    case 5:
+      return "Very Poor";
+    default:
+      return "No Data";
   }
 }
 
@@ -700,9 +737,9 @@ class weatherUpdate extends StatelessWidget {
                       currentTemp!.current.toString() +
                       "°C, humidity up to " +
                       currentTemp!.humidity.toString() +
-                      "% and the wind speed of " +
-                      currentTemp!.wind.toString() +
-                      "m/s.")
+                      "% and Air Quality Index that is " +
+                      calcAqi(currentAqi!.aqi) +
+                      ".")
                 ],
               ),
             ),

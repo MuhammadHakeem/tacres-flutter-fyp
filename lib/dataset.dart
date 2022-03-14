@@ -28,6 +28,11 @@ class Weather {
       });
 }
 
+class AirQualityIndex {
+  final int aqi;
+  AirQualityIndex({required this.aqi});
+}
+
 String appId = "1860bce2df1280e6bd0eda2a527c0178";
 
 Future<List> fetchData(String lat, String lon, String city) async {
@@ -96,6 +101,26 @@ Future<List> fetchData(String lat, String lon, String city) async {
     return [currentTemp, todayWeather, sevenday];
   }
   return [null, null, null];
+}
+
+Future<List> fetchDataAqi(String lat, String lon) async {
+  var url =
+      "https://api.openweathermap.org/data/2.5/air_pollution?lat=$lat&lon=$lon&appid=$appId";
+  var response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    var res = json.decode(response.body);
+    var aqiList = res["list"][0]["main"];
+    // print("aqiList: ");
+    // print(aqiList);
+    print("aqi: ");
+    print(aqiList["aqi"]);
+    AirQualityIndex currentAqi = AirQualityIndex(
+      aqi: aqiList["aqi"],
+    );
+
+    return [currentAqi];
+  }
+  return [null];
 }
 
 //findicon
