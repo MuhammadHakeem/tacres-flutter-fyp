@@ -69,9 +69,13 @@ class recordACT extends StatelessWidget {
                               flex: 2,
                               fit: FlexFit.tight,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(data.docs[index]['ACT_Date'],
-                                      style: TextStyle(fontSize: 12)),
+                                  Text(
+                                    data.docs[index]['ACT_Date'],
+                                    style: TextStyle(fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ],
                               ),
                             ),
@@ -81,13 +85,40 @@ class recordACT extends StatelessWidget {
                             Flexible(
                               flex: 1,
                               fit: FlexFit.tight,
-                              child: Column(
-                                children: [
-                                  Text(data.docs[index]['ACT_Score'].toString(),
-                                      style: TextStyle(fontSize: 12.0)),
-                                ],
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                decoration: BoxDecoration(
+                                  color: changeBackColorBasedACTScore(
+                                      data.docs[index]['ACT_Score']),
+                                  // borderRadius:
+                                  //     BorderRadius.all(Radius.circular(25))
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                        data.docs[index]['ACT_Score']
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
                               ),
                             ),
+                            // const VerticalDivider(
+                            //   color: Colors.grey,
+                            // ),
+                            // Flexible(
+                            //   flex: 1,
+                            //   fit: FlexFit.tight,
+                            //   child: Column(
+                            //     children: [
+                            //       returIcon(data.docs[index]['ACT_Score'])
+                            //     ],
+                            //   ),
+                            // ),
                             const VerticalDivider(
                               color: Colors.grey,
                             ),
@@ -95,6 +126,7 @@ class recordACT extends StatelessWidget {
                               flex: 2,
                               fit: FlexFit.tight,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(data.docs[index]['ACT_Desc'].toString(),
                                       textAlign: TextAlign.center,
@@ -109,6 +141,7 @@ class recordACT extends StatelessWidget {
                               flex: 2,
                               fit: FlexFit.tight,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                       data.docs[index]['ACT_Weather']
@@ -123,5 +156,43 @@ class recordACT extends StatelessWidget {
                 );
               })),
     );
+  }
+}
+
+returIcon(int value) {
+  // ignore: unnecessary_null_comparison
+  if (value > 0 && value <= 15) {
+    return const Icon(
+      Icons.circle,
+      color: Colors.redAccent,
+    );
+  } else if (value >= 16 && value <= 20) {
+    return const Icon(
+      Icons.circle,
+      color: Colors.orangeAccent,
+    );
+  } else if (value >= 21 && value <= 25) {
+    return const Icon(
+      Icons.circle,
+      color: Colors.greenAccent,
+    );
+  } else {
+    return const Icon(
+      Icons.circle,
+      color: Colors.white,
+    );
+  }
+}
+
+changeBackColorBasedACTScore(int value) {
+  // ignore: unnecessary_null_comparison
+  if (value > 0 && value <= 15) {
+    return Colors.redAccent;
+  } else if (value >= 16 && value <= 20) {
+    return Colors.orangeAccent;
+  } else if (value >= 21 && value <= 25) {
+    return Colors.greenAccent;
+  } else {
+    return Colors.white;
   }
 }
