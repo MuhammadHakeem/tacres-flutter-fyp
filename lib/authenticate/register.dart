@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:tacres_draft/homePage.dart';
 import 'package:tacres_draft/services/auth.dart';
 import 'package:tacres_draft/shared/constant.dart';
 import 'package:tacres_draft/shared/loading.dart';
@@ -147,6 +148,8 @@ class _RegisterState extends State<Register> {
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
                                       email, password);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => HomePage()));
                               if (result == null) {
                                 setState(() {
                                   error =

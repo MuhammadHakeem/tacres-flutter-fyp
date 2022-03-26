@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tacres_draft/homePage.dart';
 import 'package:tacres_draft/services/auth.dart';
 import 'package:tacres_draft/shared/constant.dart';
 import 'package:tacres_draft/shared/loading.dart';
@@ -88,6 +89,8 @@ class _SignInState extends State<SignIn> {
                             setState(() => loading = true);
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(email, password);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => HomePage()));
                             if (result == null) {
                               setState(() {
                                 error =

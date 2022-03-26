@@ -290,7 +290,7 @@ class _HomePageState extends State<HomePage> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 // Text("$lat    ${lon}"),
-                Text(AuthService().giveMyUid()),
+                // Text(AuthService().giveMyUid()),
                 TodayWeather(),
                 currChance(),
                 hourlyForecast(),
