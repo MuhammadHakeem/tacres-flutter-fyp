@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:tacres_draft/services/auth.dart';
 import 'package:tacres_draft/shared/constant.dart';
 import 'package:tacres_draft/shared/loading.dart';
+import 'package:tacres_draft/authenticate/sign_in.dart';
 
 var valRulesReg;
 
 class Register extends StatefulWidget {
-  final Function toggleView;
-  Register({required this.toggleView});
+  // final Function toggleView;
+  // Register({required this.toggleView});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -176,7 +177,10 @@ class _RegisterState extends State<Register> {
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline),
                               ),
-                              onTap: () async => await widget.toggleView()),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SignIn()));
+                              }),
                         ],
                       ),
                       // Text(valRulesReg.toString())

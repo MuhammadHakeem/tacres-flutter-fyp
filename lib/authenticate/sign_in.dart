@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tacres_draft/services/auth.dart';
 import 'package:tacres_draft/shared/constant.dart';
 import 'package:tacres_draft/shared/loading.dart';
+import 'package:tacres_draft/authenticate/register.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  SignIn({required this.toggleView});
+  // final Function toggleView;
+  // SignIn({required this.toggleView});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -116,7 +117,12 @@ class _SignInState extends State<SignIn> {
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline),
                               ),
-                              onTap: () async => await widget.toggleView()),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    // ignore: prefer_const_constructors
+                                    MaterialPageRoute(
+                                        builder: (context) => Register()));
+                              }),
                         ],
                       ),
                       SizedBox(height: 40),

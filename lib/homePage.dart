@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tacres_draft/authenticate/sign_in.dart';
 import 'package:tacres_draft/dataset.dart';
 import 'package:tacres_draft/recordACT.dart';
 import 'package:tacres_draft/asthContTest.dart';
@@ -10,6 +11,8 @@ import 'dart:convert';
 import 'package:tacres_draft/services/database.dart';
 import 'package:tacres_draft/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:tacres_draft/services/auth.dart';
+import 'package:tacres_draft/wrapper.dart';
 
 StreamController<String> streamController = StreamController<String>();
 
@@ -273,6 +276,9 @@ class _HomePageState extends State<HomePage> {
                   previousACTScore = 0;
                   currentACTScore = 0;
                   _auth.signOutAuth();
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(builder: (context) => Wrapper()));
                 },
               ),
             ],
@@ -284,6 +290,7 @@ class _HomePageState extends State<HomePage> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 // Text("$lat    ${lon}"),
+                Text(AuthService().giveMyUid()),
                 TodayWeather(),
                 currChance(),
                 hourlyForecast(),

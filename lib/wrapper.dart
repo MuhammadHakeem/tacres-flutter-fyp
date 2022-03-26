@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tacres_draft/authenticate/authenticate.dart';
+import 'package:tacres_draft/authenticate/sign_in.dart';
 import 'package:tacres_draft/homePage.dart';
 import 'package:tacres_draft/model/user.dart';
 
@@ -14,7 +14,7 @@ class Wrapper extends StatelessWidget {
 
     //return either homePage or Authenticate widget
     if (wrapperUser == null) {
-      return const Authenticate();
+      return SignIn();
     } else {
       return HomePage();
     }
