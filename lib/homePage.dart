@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tacres_draft/authenticate/sign_in.dart';
 import 'package:tacres_draft/dataset.dart';
 import 'package:tacres_draft/recordACT.dart';
 import 'package:tacres_draft/asthContTest.dart';
@@ -10,9 +9,8 @@ import 'package:geocoding/geocoding.dart';
 import 'dart:convert';
 import 'package:tacres_draft/services/database.dart';
 import 'package:tacres_draft/services/auth.dart';
-import 'package:provider/provider.dart';
-import 'package:tacres_draft/services/auth.dart';
 import 'package:tacres_draft/wrapper.dart';
+import 'package:tacres_draft/faq.dart';
 
 StreamController<String> streamController = StreamController<String>();
 
@@ -220,40 +218,40 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(builder: (context) => recordACT()));
                 },
               ),
+              // Divider(color: Colors.grey),
+              // ListTile(
+              //   tileColor: Colors.white,
+              //   leading: const Icon(Icons.menu_book, color: Colors.black),
+              //   title: const Text('Weather Map',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //       )),
+              //   onTap: () {},
+              // ),
+              // Divider(color: Colors.grey),
+              // ListTile(
+              //   tileColor: Colors.white,
+              //   leading: const Icon(Icons.question_answer_outlined,
+              //       color: Colors.black),
+              //   title: const Text('App Language',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //       )),
+              //   onTap: () {
+              //     // Update the state of the app
+              //     // ...
+              //     // Then close the drawer
+              //     Navigator.pop(context);
+              //   },
+              // ),
               Divider(color: Colors.grey),
               ListTile(
                 tileColor: Colors.white,
-                leading: const Icon(Icons.menu_book, color: Colors.black),
-                title: const Text('Weather Map',
-                    style: TextStyle(
-                      color: Colors.black,
-                    )),
-                onTap: () {},
-              ),
-              Divider(color: Colors.grey),
-              ListTile(
-                tileColor: Colors.white,
-                leading:
-                    const Icon(Icons.language_rounded, color: Colors.black),
-                title: const Text('App Language',
-                    style: TextStyle(
-                      color: Colors.black,
-                    )),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-              Divider(color: Colors.grey),
-              ListTile(
-                tileColor: Colors.white,
-                leading: const Icon(
-                  Icons.settings,
+                leading: Icon(
+                  Icons.question_answer_outlined,
                   color: Colors.black,
                 ),
-                title: const Text('Settings',
+                title: const Text('FAQ',
                     style: TextStyle(
                       color: Colors.black,
                     )),
@@ -261,7 +259,9 @@ class _HomePageState extends State<HomePage> {
                   // Update the state of the app
                   // ...
                   // Then close the drawer
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(builder: (context) => faq()));
                 },
               ),
               Divider(color: Colors.grey),
