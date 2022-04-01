@@ -148,14 +148,16 @@ class _RegisterState extends State<Register> {
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
                                       email, password);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+
                               if (result == null) {
                                 setState(() {
                                   error =
                                       'Email has been registered or incorrect email format';
                                   loading = false;
                                 });
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => HomePage()));
                               }
                             }
                           }

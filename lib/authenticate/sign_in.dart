@@ -89,14 +89,16 @@ class _SignInState extends State<SignIn> {
                             setState(() => loading = true);
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(email, password);
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HomePage()));
+
                             if (result == null) {
                               setState(() {
                                 error =
                                     'Could Not Sign In With Those Credential';
                                 loading = false;
                               });
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => HomePage()));
                             }
                           }
                         },
