@@ -69,6 +69,7 @@ enum answer1 {
   choice4,
   choice5
 } //code from internet, no need to update
+
 enum answer2 {
   choice1,
   choice2,
@@ -76,8 +77,11 @@ enum answer2 {
   choice4,
   choice5
 } // by default, will choose first choice
+
 enum answer3 { choice1, choice2, choice3, choice4, choice5 }
+
 enum answer4 { choice1, choice2, choice3, choice4, choice5 }
+
 enum answer5 { choice1, choice2, choice3, choice4, choice5 }
 
 // ignore: camel_case_types
@@ -151,7 +155,7 @@ class _question1State extends State<question1> {
     return Container(
         margin: const EdgeInsets.all(10),
         padding: EdgeInsets.all(10),
-        height: 295,
+        height: 300,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -573,7 +577,7 @@ class _question4State extends State<question4> {
     return Container(
         margin: const EdgeInsets.all(10),
         padding: EdgeInsets.all(10),
-        height: 300,
+        height: 320,
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10))),

@@ -495,7 +495,7 @@ class hourlyWidget extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  weather.time + " am",
+                  weather.time,
                 ),
                 SizedBox(
                   height: 5,
@@ -560,7 +560,7 @@ String calcAsthChancExac(int value) {
   if (value > 0 && value <= 15) {
     return "                High               ";
   } else if (value >= 16 && value <= 20) {
-    return "               Medium              ";
+    return "             Medium              ";
   } else if (value >= 21 && value <= 25) {
     return "                Low                ";
   } else {
@@ -599,7 +599,7 @@ class currChance extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.only(right: 2.0),
                   padding: EdgeInsets.all(10),
-                  height: 100,
+                  height: 105,
                   // width: 180,
                   // height: 300,
                   decoration: BoxDecoration(
@@ -652,7 +652,7 @@ class currChance extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.only(left: 2.0),
                   padding: EdgeInsets.all(10),
-                  height: 100,
+                  height: 105,
                   // width: 180,
                   // height: 300,
                   decoration: BoxDecoration(
@@ -711,7 +711,7 @@ class weatherUpdate extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      height: 100,
+      height: 130,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -730,7 +730,7 @@ class weatherUpdate extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 2,
+            flex: 3,
             fit: FlexFit.tight,
             child: Container(
               decoration: BoxDecoration(
@@ -765,7 +765,7 @@ class healthRec extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       padding: EdgeInsets.all(10),
-      height: 140,
+      height: 145,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -787,7 +787,7 @@ class healthRec extends StatelessWidget {
           ),
         ),
         Flexible(
-            flex: 3,
+            flex: 4,
             child: Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               decoration: BoxDecoration(
