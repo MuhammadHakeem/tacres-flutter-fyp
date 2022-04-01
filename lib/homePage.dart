@@ -294,8 +294,8 @@ class _HomePageState extends State<HomePage> {
                 TodayWeather(),
                 currChance(),
                 hourlyForecast(),
-                weatherUpdate(),
                 healthRec(),
+                weatherUpdate(),
                 dailyForecast(),
                 UserInformation(),
                 previousChanceCalc(),
@@ -710,7 +710,7 @@ class weatherUpdate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       height: 130,
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -763,7 +763,7 @@ class healthRec extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       padding: EdgeInsets.all(10),
       height: 145,
       decoration: const BoxDecoration(
@@ -776,12 +776,21 @@ class healthRec extends StatelessWidget {
           fit: FlexFit.tight,
           child: Container(
             child: Column(
-              children: const [
-                Text(
-                  "Health Recommendation",
-                  // textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.w800),
-                )
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Text(
+                      "Health Recommendation",
+                      // textAlign: TextAlign.start,
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(Icons.thumb_up_outlined, color: Colors.blue, size: 18)
+                  ],
+                ),
               ],
             ),
           ),
@@ -824,11 +833,11 @@ String healthRecommendation1(weatherName) {
   if (weatherName == "Rain" ||
       weatherName == "Clouds" ||
       weatherName == "Drizzle") {
-    return "Wrap a scarf around nose and mouth loosely";
+    return "Wrap a scarf around your nose and mouth loosely.";
   } else if (weatherName == "Thunderstorm") {
     return "Stay inside before, during and after the storm.";
   } else {
-    return "Keep an eye on air quality index and pollen forecast";
+    return "Keep an eye on air quality index and pollen forecast.";
   }
 }
 
@@ -836,7 +845,7 @@ String healthRecommendation2(weatherName) {
   if (weatherName == "Rain" ||
       weatherName == "Clouds" ||
       weatherName == "Drizzle") {
-    return "The scarf can prevent airways being shocked by cold air.";
+    return "The scarf can prevent airways from being shocked by cold air.";
   } else if (weatherName == "Thunderstorm") {
     return "Keep the windows shut to prevent pollen from entering the house.";
   } else {

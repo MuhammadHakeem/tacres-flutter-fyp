@@ -79,7 +79,7 @@ class scoreDescription extends StatelessWidget {
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: localACTscore3 <= 15 ? Colors.blue[300] : Colors.white,
+                  color: localACTscore3 <= 15 ? Colors.redAccent : Colors.white,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -98,13 +98,13 @@ class scoreDescription extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: localACTscore3 <= 20 && localACTscore3 >= 16
-                      ? Colors.blue[300]
+                      ? Colors.orangeAccent
                       : Colors.white,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("16-20            Poorly Controlled Asthma",
+                    Text("16-20               Poorly Controlled Asthma",
                         style: TextStyle(fontWeight: FontWeight.bold))
                   ],
                 ),
@@ -118,13 +118,13 @@ class scoreDescription extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: localACTscore3 <= 25 && localACTscore3 >= 21
-                      ? Colors.blue[300]
+                      ? Colors.greenAccent
                       : Colors.white,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("21-25       Well-Controlled Asthma",
+                    Text("21-25                 Well-Controlled Asthma",
                         style: TextStyle(fontWeight: FontWeight.bold))
                   ],
                 ),
