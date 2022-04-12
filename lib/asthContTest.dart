@@ -872,7 +872,7 @@ class submitButton extends StatelessWidget {
                   },
                   child: const Text('Submit',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black))),
+                          fontWeight: FontWeight.bold, color: Colors.white))),
             )
           ],
         ));

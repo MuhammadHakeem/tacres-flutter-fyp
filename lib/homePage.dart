@@ -179,61 +179,12 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 30),
-              Divider(color: Colors.grey),
-              ListTile(
-                selectedTileColor: Colors.blue[300],
-                tileColor: Colors.white,
-                leading: const Icon(Icons.edit, color: Colors.black),
-                title: const Text('Asthma Control Test',
-                    style: TextStyle(
-                      color: Colors.black,
-                    )),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.of(context).push(
-                      // ignore: prefer_const_constructors
-                      MaterialPageRoute(
-                          builder: (context) => asthContTest(
-                              currentWeather: currentTemp!.name.toString())));
-                  // Navigator.pop(context);
-                },
-              ),
-              Divider(color: Colors.grey),
-              ListTile(
-                selectedTileColor: Colors.blue[300],
-                tileColor: Colors.white,
-                leading: const Icon(Icons.feed, color: Colors.black),
-                title: const Text('ACT Records',
-                    style: TextStyle(
-                      color: Colors.black,
-                    )),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.of(context).push(
-                      // ignore: prefer_const_constructors
-                      MaterialPageRoute(builder: (context) => recordACT()));
-                },
-              ),
               // Divider(color: Colors.grey),
               // ListTile(
+              //   selectedTileColor: Colors.blue[300],
               //   tileColor: Colors.white,
-              //   leading: const Icon(Icons.menu_book, color: Colors.black),
-              //   title: const Text('Weather Map',
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //       )),
-              //   onTap: () {},
-              // ),
-              // Divider(color: Colors.grey),
-              // ListTile(
-              //   tileColor: Colors.white,
-              //   leading: const Icon(Icons.question_answer_outlined,
-              //       color: Colors.black),
-              //   title: const Text('App Language',
+              //   leading: const Icon(Icons.edit, color: Colors.black),
+              //   title: const Text('Asthma Control Test',
               //       style: TextStyle(
               //         color: Colors.black,
               //       )),
@@ -241,7 +192,27 @@ class _HomePageState extends State<HomePage> {
               //     // Update the state of the app
               //     // ...
               //     // Then close the drawer
-              //     Navigator.pop(context);
+              //     Navigator.of(context).push(
+              //         // ignore: prefer_const_constructors
+              //         MaterialPageRoute(
+              //             builder: (context) => asthContTest(
+              //                 currentWeather: currentTemp!.name.toString())));
+              //     // Navigator.pop(context);
+              //   },
+              // ),
+              // Divider(color: Colors.grey),
+              // ListTile(
+              //   selectedTileColor: Colors.blue[300],
+              //   tileColor: Colors.white,
+              //   leading: const Icon(Icons.feed, color: Colors.black),
+              //   title: const Text('ACT Records',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //       )),
+              //   onTap: () {
+              //     Navigator.of(context).push(
+              //         // ignore: prefer_const_constructors
+              //         MaterialPageRoute(builder: (context) => recordACT()));
               //   },
               // ),
               Divider(color: Colors.grey),
@@ -293,10 +264,11 @@ class _HomePageState extends State<HomePage> {
                 // Text(AuthService().giveMyUid()),
                 TodayWeather(),
                 currChance(),
-                hourlyForecast(),
+                takeACTReminder(),
                 healthRec(),
-                weatherUpdate(),
-                dailyForecast(),
+                hourlyForecast(),
+                // weatherUpdate(),
+                // dailyForecast(),
                 UserInformation(),
                 previousChanceCalc(),
               ],
@@ -480,7 +452,7 @@ class hourlyWidget extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
       width: 80,
       decoration: const BoxDecoration(
-          color: Colors.black12,
+          color: Color.fromARGB(20, 0, 72, 186),
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         children: [
@@ -564,7 +536,7 @@ String calcAsthChancExac(int value) {
   } else if (value >= 21 && value <= 25) {
     return "                Low                ";
   } else {
-    return "              No Data              ";
+    return "      Go Take an ACT               ";
   }
 }
 
@@ -577,7 +549,7 @@ calcAsthChancExacColor(int value) {
   } else if (value >= 21 && value <= 25) {
     return Colors.greenAccent;
   } else {
-    return Colors.white;
+    return Colors.grey[200];
   }
 }
 
@@ -765,7 +737,7 @@ class healthRec extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       padding: EdgeInsets.all(10),
-      height: 145,
+      height: 155,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -777,39 +749,37 @@ class healthRec extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "Health Recommendation",
-                      // textAlign: TextAlign.start,
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(Icons.thumb_up_outlined, color: Colors.blue, size: 18)
-                  ],
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Text(
+                    "Health Recommendation for Asthmatic Patients: " +
+                        currentTemp!.name.toString(),
+                    // textAlign: TextAlign.start,
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+                  ),
                 ),
+                // Icon(Icons.thumb_up_outlined, color: Colors.blue, size: 18),
               ],
             ),
           ),
         ),
         Flexible(
-            flex: 4,
+            flex: 2,
             child: Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Color.fromARGB(20, 0, 72, 186),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ListTile(
                     title: Text(
                       "1. " +
                           healthRecommendation1(currentTemp!.name.toString()),
                       // ignore: prefer_const_constructors
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 12),
                     ),
                     // ignore: prefer_const_constructors
                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
@@ -818,7 +788,7 @@ class healthRec extends StatelessWidget {
                     title: Text(
                         "2. " +
                             healthRecommendation2(currentTemp!.name.toString()),
-                        style: TextStyle(fontSize: 14)),
+                        style: TextStyle(fontSize: 12)),
                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                   )
                 ],
@@ -1090,6 +1060,118 @@ class _previousChanceCalcState extends State<previousChanceCalc> {
             }).toList(),
           );
         },
+      ),
+    );
+  }
+}
+
+class takeACTReminder extends StatelessWidget {
+  const takeACTReminder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 210,
+      width: double.infinity,
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      padding: EdgeInsets.all(10),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: Column(
+        children: [
+          Row(
+            children: <Widget>[
+              Flexible(
+                flex: 3,
+                fit: FlexFit.loose,
+                child: Column(
+                  children: const [
+                    Text("Come and Take Your Asthma Control Test(ACT)!",
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                        textAlign: TextAlign.left),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        "The Asthma Control Test (ACT) is a tool that can help you figure out if your asthma symptoms are under control.",
+                        style: TextStyle(fontSize: 12.0))
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: Column(
+                  children: const [
+                    Image(
+                      image: AssetImage("assets/test.png"),
+                      height: 80,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(20, 0, 72, 186),
+                // borderRadius: BorderRadius.all(Radius.circular(10))
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10))),
+            child: SizedBox(
+              height: 35,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(
+                          builder: (context) => asthContTest(
+                              currentWeather: currentTemp!.name.toString())));
+                },
+                child: const Text('Perform ACT',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
+              ),
+            ),
+          ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          Text("or", style: TextStyle(fontWeight: FontWeight.bold)),
+          Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(20, 0, 72, 186),
+                // borderRadius: BorderRadius.all(Radius.circular(10))
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10))),
+            child: SizedBox(
+              height: 35,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(builder: (context) => recordACT()));
+                },
+                child: const Text('Check ACT Records',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

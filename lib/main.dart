@@ -29,11 +29,12 @@ class MyApp extends StatelessWidget {
             seconds: 2,
             navigateAfterSeconds: Wrapper(),
             title: const Text(
-              'TACRES',
+              'Mobile App Companion for Asthmatic Patients',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+                  fontSize: 15.0,
                   color: Colors.black),
+              textAlign: TextAlign.center,
             ),
             image: Image.asset("assets/icon-tacres-circle.png"),
             photoSize: 100.0,

@@ -9,7 +9,7 @@ class resultACT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffBFC0C2),
+      backgroundColor: Color.fromARGB(255, 190, 198, 230),
       appBar: AppBar(
         title: Text('Asthma Control Test', style: TextStyle(fontSize: 17.0)),
         backgroundColor: Colors.white,
