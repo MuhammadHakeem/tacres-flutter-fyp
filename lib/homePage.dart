@@ -268,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                 healthRec(),
                 hourlyForecast(),
                 // weatherUpdate(),
-                // dailyForecast(),
+                dailyForecast(),
                 UserInformation(),
                 previousChanceCalc(),
               ],
@@ -893,7 +893,7 @@ class dailyWidget extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
       width: 80,
       decoration: const BoxDecoration(
-          color: Colors.black12,
+          color: Color.fromARGB(20, 0, 72, 186),
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         children: [
