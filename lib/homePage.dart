@@ -179,42 +179,42 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 30),
-              // Divider(color: Colors.grey),
-              // ListTile(
-              //   selectedTileColor: Colors.blue[300],
-              //   tileColor: Colors.white,
-              //   leading: const Icon(Icons.edit, color: Colors.black),
-              //   title: const Text('Asthma Control Test',
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //       )),
-              //   onTap: () {
-              //     // Update the state of the app
-              //     // ...
-              //     // Then close the drawer
-              //     Navigator.of(context).push(
-              //         // ignore: prefer_const_constructors
-              //         MaterialPageRoute(
-              //             builder: (context) => asthContTest(
-              //                 currentWeather: currentTemp!.name.toString())));
-              //     // Navigator.pop(context);
-              //   },
-              // ),
-              // Divider(color: Colors.grey),
-              // ListTile(
-              //   selectedTileColor: Colors.blue[300],
-              //   tileColor: Colors.white,
-              //   leading: const Icon(Icons.feed, color: Colors.black),
-              //   title: const Text('ACT Records',
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //       )),
-              //   onTap: () {
-              //     Navigator.of(context).push(
-              //         // ignore: prefer_const_constructors
-              //         MaterialPageRoute(builder: (context) => recordACT()));
-              //   },
-              // ),
+              Divider(color: Colors.grey),
+              ListTile(
+                selectedTileColor: Colors.blue[300],
+                tileColor: Colors.white,
+                leading: const Icon(Icons.edit, color: Colors.black),
+                title: const Text('Asthma Control Test',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(
+                          builder: (context) => asthContTest(
+                              currentWeather: currentTemp!.name.toString())));
+                  // Navigator.pop(context);
+                },
+              ),
+              Divider(color: Colors.grey),
+              ListTile(
+                selectedTileColor: Colors.blue[300],
+                tileColor: Colors.white,
+                leading: const Icon(Icons.feed, color: Colors.black),
+                title: const Text('ACT Records',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
+                onTap: () {
+                  Navigator.of(context).push(
+                      // ignore: prefer_const_constructors
+                      MaterialPageRoute(builder: (context) => recordACT()));
+                },
+              ),
               Divider(color: Colors.grey),
               ListTile(
                 tileColor: Colors.white,
@@ -1122,7 +1122,8 @@ class takeACTReminder extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: const BoxDecoration(
-                color: Color.fromARGB(20, 0, 72, 186),
+                // color: Color.fromARGB(20, 0, 72, 186),
+                color: Colors.lightBlue,
                 // borderRadius: BorderRadius.all(Radius.circular(10))
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
@@ -1139,7 +1140,7 @@ class takeACTReminder extends StatelessWidget {
                 },
                 child: const Text('Perform ACT',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     )),
               ),
             ),
@@ -1151,7 +1152,8 @@ class takeACTReminder extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: const BoxDecoration(
-                color: Color.fromARGB(20, 0, 72, 186),
+                // color: Color.fromARGB(20, 0, 72, 186),
+                color: Colors.lightBlue,
                 // borderRadius: BorderRadius.all(Radius.circular(10))
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
@@ -1166,7 +1168,7 @@ class takeACTReminder extends StatelessWidget {
                 },
                 child: const Text('Check ACT Records',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     )),
               ),
             ),
