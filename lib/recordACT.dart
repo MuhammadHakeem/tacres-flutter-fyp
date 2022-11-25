@@ -8,9 +8,9 @@ class recordACT extends StatelessWidget {
   // const recordACT({Key? key}) : super(key: key);
 
   final Stream<QuerySnapshot> act_record = FirebaseFirestore.instance
-      .collection('draft-act-record')
+      .collection('act-record')
       .where('Uid', isEqualTo: AuthService().giveMyUid())
-      .orderBy('ACT_Date', descending: false)
+      .orderBy('ACT_Date', descending: true)
       .snapshots();
 
   @override
@@ -53,7 +53,14 @@ class recordACT extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Text('Loading');
                 }
-
+                if (snapshot.data?.size == 0) {
+                  // got data from snapshot but it is empty
+                  return Padding(
+                      padding:
+                          EdgeInsets.all(20), //apply padding to all four sides
+                      child: Text(
+                          "Please complete the Asthma Control Test(ACT) to display the records here."));
+                }
                 final data = snapshot.requireData;
                 return ListView.builder(
                   itemCount: data.size,

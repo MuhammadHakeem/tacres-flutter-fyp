@@ -976,7 +976,7 @@ class UserInformation extends StatefulWidget {
 
 class _UserInformationState extends State<UserInformation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('draft-act-record')
+      .collection('act-record')
       .where('Uid', isEqualTo: AuthService().giveMyUid())
       .orderBy('ACT_Date', descending: true)
       .limit(1)
@@ -1024,7 +1024,7 @@ class previousChanceCalc extends StatefulWidget {
 
 class _previousChanceCalcState extends State<previousChanceCalc> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('draft-act-record')
+      .collection('act-record')
       .where('Uid', isEqualTo: AuthService().giveMyUid())
       .orderBy('ACT_Date', descending: true)
       .limit(2)

@@ -859,13 +859,11 @@ class submitButton extends StatelessWidget {
                         builder: (context) => resultACT(
                               localACTscore1: cumACTscore,
                             )));
-                    FirebaseFirestore.instance
-                        .collection('draft-act-record')
-                        .add({
+                    FirebaseFirestore.instance.collection('act-record').add({
                       'ACT_Score': cumACTscore,
                       'ACT_Desc': ACTdesc,
                       'ACT_Weather': currentWeather2,
-                      'ACT_Date': DateTime.now().format('y-MM-dd H:m'),
+                      'ACT_Date': DateTime.now().format('y-MM-dd HH:mm'),
                       'Uid': AuthService().giveMyUid(),
                     });
                     setAlltoDefault();
